@@ -12,12 +12,12 @@ class BlogPostsController extends Controller
     {
         $blogPostsCollection = $blogPosts->all();
 
-        return view('blog.index', compact('blogPostsCollection'));
+        return $this->responseFactory->view('blog.index', compact('blogPostsCollection'));
     }
 
     public function create()
     {
-        return view('blog.create');
+        return $this->responseFactory->view('blog.create');
     }
 
     public function store(BlogPostRequest $request)
@@ -39,6 +39,6 @@ class BlogPostsController extends Controller
 
         $blogPost->create($data);
 
-        return view('home');
+        return $this->responseFactory->view('home');
     }
 }

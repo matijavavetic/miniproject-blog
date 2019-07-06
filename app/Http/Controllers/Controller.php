@@ -24,7 +24,7 @@ class Controller extends BaseController
      *
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    protected $response;
+    protected $responseFactory;
 
     /**
      * Create new controller instance
@@ -36,6 +36,6 @@ class Controller extends BaseController
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
-        $this->response = $response;
+        $this->responseFactory = $response;
     }
 }
