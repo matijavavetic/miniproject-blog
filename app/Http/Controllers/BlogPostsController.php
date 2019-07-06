@@ -55,6 +55,6 @@ class BlogPostsController extends Controller
 
         $blogPost->update($request->validationData());
 
-        return $this->responseFactory->view('blog.edit', compact('blogPost'));
+        return $this->responseFactory->redirectToAction('BlogPostsController@edit', [ 'id' => $id]);
     }
 }
