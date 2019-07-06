@@ -25,16 +25,16 @@ class BlogPostRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'body' => 'required'
+            'body'  => 'required'
         ];
     }
 
     public function validationData()
     {
         $input = [
-            'title' => $this->input('title'),
-            'body' => $this->input('body'),
-            'image' => $this->input('image'),
+            'title'   => $this->input('title'),
+            'body'    => $this->input('body'),
+            'image'   => $this->input('image'),
             'user_id' => auth()->id()
         ];
         return $input;

@@ -35,7 +35,9 @@ class BlogPostsController extends Controller
             $data['image'] = '';
         }
 
-        BlogPosts::create($data);
+        $blogPost = new BlogPosts();
+
+        $blogPost->create($data);
 
         return view('home');
     }
