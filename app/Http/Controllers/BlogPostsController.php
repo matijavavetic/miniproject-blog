@@ -41,4 +41,20 @@ class BlogPostsController extends Controller
 
         return $this->responseFactory->view('home');
     }
+
+    public function edit($id)
+    {
+        $blogPost = BlogPosts::findOrFail($id);
+
+        return $this->responseFactory->view('blog.edit', compact('blogPost'));
+    }
+
+    public function update(BlogPostRequest $request, $id)
+    {
+        $blogPost = BlogPosts::findOrFail($id);
+
+        $blogPost->update($request->validationData());
+
+        return redirect('/blog');
+    }
 }
