@@ -53,8 +53,10 @@ class BlogPostsController extends Controller
     {
         $blogPost = $blogPosts->findOrFail($id);
 
-        $blogPost->update($request->validationData());
+        $data = $request->validationData();
 
-        return $this->responseFactory->redirectToAction('BlogPostsController@edit', [ 'id' => $id]);
+        $blogPost->update($data);
+
+        return $this->responseFactory->redirectToAction('BlogPostsController@edit', ['id' => $id]);
     }
 }
