@@ -16,4 +16,9 @@ class BlogPosts extends Model
     {
         return "/blog/{$this->id}";
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
