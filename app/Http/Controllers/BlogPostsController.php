@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\BlogPosts;
+use App\Models\BlogPosts;
+use App\Http\Requests\BlogPostRequest;
 
 class BlogPostsController extends Controller
 {
-    public function index()
+    public function index(BlogPosts $blogPosts)
     {
-        $blogPosts = BlogPosts::all();
+        $blogPostsCollection = $blogPosts->all();
 
-        return view('blog.index', compact('blogPosts'));
+        return view('blog.index', compact('blogPostsCollection'));
     }
 
     public function create()
@@ -19,26 +20,22 @@ class BlogPostsController extends Controller
         return view('blog.create');
     }
 
-    public function store(Request $request)
+    public function store(BlogPostRequest $request)
     {
-        $blogPost = new BlogPosts();
-
-        $blogPost->title = $request->input('title');
-        $blogPost->body = $request->input('body');
-        $blogPost->image = $request->input('image');
+        $data = $request->validationData();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->move('uploads/images', $filename);
-            $blogPost->image = $filename;
+            $data['image'] = $filename;
         } else {
             return $request;
-            $blogPost->image = '';
+            $data['image'] = '';
         }
 
-        $blogPost->save();
+        BlogPosts::create($data);
 
         return view('home');
     }
