@@ -24,7 +24,7 @@
 
         <div class="mb-4 flex-1">{{ str_limit($blogPost->body, 100) }}</div>
 
-        <td> <img src="{{ asset('uploads/images/' . $blogPost->image) }}" /> </td>
+        <td> <img src="{{ asset('storage/blogimages/'.$blogPost->image) }}" /> </td>
         @endforeach
     </div>
 

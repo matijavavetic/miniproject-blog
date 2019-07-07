@@ -35,7 +35,7 @@ class BlogPostRequest extends FormRequest
             'title'   => $this->input('title'),
             'body'    => $this->input('body'),
             'image'   => $this->input('image'),
-            'user_id' => Auth::id()
+            'user_id' => auth()->id()
         ];
         return $input;
     }

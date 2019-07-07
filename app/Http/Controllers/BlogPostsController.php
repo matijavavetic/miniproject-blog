@@ -45,12 +45,9 @@ class BlogPostsController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/images', $filename);
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('blogimages', $filename);
             $data['image'] = $filename;
-        } else {
-            $data['image'] = null;
         }
 
         $blogPost = new BlogPosts();
@@ -84,6 +81,7 @@ class BlogPostsController extends Controller
      * @param \App\Models\BlogPosts $blogPosts
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(BlogPostRequest $request, BlogPosts $blogPosts, int $id)
     {
