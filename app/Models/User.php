@@ -37,6 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the blog posts that user created
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function blogPosts()
     {
         return $this->hasMany(BlogPosts::class);

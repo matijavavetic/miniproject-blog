@@ -8,6 +8,13 @@ use App\Http\Requests\BlogPostRequest;
 
 class BlogPostsController extends Controller
 {
+
+    /**
+     * Retrieve all blog posts
+     *
+     * @param \App\Models\BlogPosts $blogPosts
+     * @return \Illuminate\Http\Response
+     */
     public function index(BlogPosts $blogPosts)
     {
         $blogPostsCollection = $blogPosts->all();
@@ -15,11 +22,23 @@ class BlogPostsController extends Controller
         return $this->responseFactory->view('blog.index', compact('blogPostsCollection'));
     }
 
+    /**
+     * Returns view to create a new blog post
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return $this->responseFactory->view('blog.create');
     }
 
+
+    /**
+     * Stores a newly created blog post into database
+     *
+     * @param BlogPostRequest $request
+     * @return BlogPostRequest|\Illuminate\Http\Response
+     */
     public function store(BlogPostRequest $request)
     {
         $data = $request->validationData();
@@ -42,14 +61,29 @@ class BlogPostsController extends Controller
         return $this->responseFactory->view('home');
     }
 
-    public function edit(BlogPosts $blogPosts, $id)
+    /**
+     * Find blog post by id and edit it
+     *
+     * @param \App\Models\BlogPosts $blogPosts
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(BlogPosts $blogPosts, int $id)
     {
         $blogPost = $blogPosts->findOrFail($id);
 
         return $this->responseFactory->view('blog.edit', compact('blogPost'));
     }
 
-    public function update(BlogPostRequest $request, BlogPosts $blogPosts, $id)
+    /**
+     * Find blog post by id and update it
+     *
+     * @param \App\Http\Requests\BlogPostRequest $request
+     * @param \App\Models\BlogPosts $blogPosts
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(BlogPostRequest $request, BlogPosts $blogPosts, int $id)
     {
         $blogPost = $blogPosts->findOrFail($id);
 
