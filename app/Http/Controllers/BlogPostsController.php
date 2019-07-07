@@ -50,8 +50,7 @@ class BlogPostsController extends Controller
             $file->move('uploads/images', $filename);
             $data['image'] = $filename;
         } else {
-            return $request;
-            $data['image'] = '';
+            $data['image'] = null;
         }
 
         $blogPost = new BlogPosts();
