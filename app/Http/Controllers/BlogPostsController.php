@@ -66,10 +66,13 @@ class BlogPostsController extends Controller
      * @param \App\Models\BlogPosts $blogPosts
      * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(BlogPosts $blogPosts, int $id)
     {
         $blogPost = $blogPosts->findOrFail($id);
+
+        $this->authorize('update', $blogPost);
 
         return $this->responseFactory->view('blog.edit', compact('blogPost'));
     }
@@ -85,6 +88,8 @@ class BlogPostsController extends Controller
     public function update(BlogPostRequest $request, BlogPosts $blogPosts, int $id)
     {
         $blogPost = $blogPosts->findOrFail($id);
+
+        $this->authorize('update', $blogPost);
 
         $data = $request->validationData();
 
