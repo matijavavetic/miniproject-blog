@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\BlogPosts;
 use App\Http\Requests\BlogPostRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class BlogPostsController extends Controller
 {
@@ -107,6 +108,10 @@ class BlogPostsController extends Controller
         $blogPost = $blogPosts->findOrFail($id);
 
         $this->authorize('delete', $blogPost);
+
+        $blogPostImage = 'blogimages' . '/' . $blogPost->image;
+
+        $this->storage->has($blogPostImage) ? $this->storage->delete($blogPostImage) : null;
 
         $blogPost->delete();
 
