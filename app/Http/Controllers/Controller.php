@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Auth\AuthManager as Auth;
 
 class Controller extends BaseController
 {
@@ -30,7 +31,19 @@ class Controller extends BaseController
      */
     protected $responseFactory;
 
+    /**
+     * The storage instance
+     *
+     * @var \Illuminate\Filesystem\FilesystemManager $storage
+     */
     protected $storage;
+
+    /**
+     * The auth instance
+     *
+     * @var \Illuminate\Auth\AuthManager $auth
+     */
+    protected $auth;
 
     /**
      * Create new controller instance
@@ -38,12 +51,14 @@ class Controller extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Contracts\Routing\ResponseFactory  $response
      * @param  \Illuminate\Filesystem\FilesystemManager $storage
+     * @param \Illuminate\Auth\AuthManager $auth
      * @return void
      */
-    public function __construct(Request $request, Response $response, FilesystemManager $storage)
+    public function __construct(Request $request, Response $response, FilesystemManager $storage, Auth $auth)
     {
         $this->request = $request;
         $this->responseFactory = $response;
         $this->storage = $storage;
+        $this->auth = $auth;
     }
 }
