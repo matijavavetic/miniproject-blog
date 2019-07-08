@@ -29,6 +29,11 @@ class BlogPostRequest extends FormRequest
         ];
     }
 
+    /**
+     * Validating data for a blog post
+     *
+     * @return array
+     */
     public function validationData()
     {
         $input = [

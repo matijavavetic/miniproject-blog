@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Models\BlogPosts;
 use App\Http\Requests\BlogPostRequest;
+use Illuminate\Http\Response;
 
 class BlogPostsController extends Controller
 {
@@ -12,10 +13,10 @@ class BlogPostsController extends Controller
     /**
      * Retrieve all blog posts
      *
-     * @param \App\Models\BlogPosts $blogPosts
-     * @return \Illuminate\Http\Response
+     * @param BlogPosts $blogPosts
+     * @return Response
      */
-    public function index(BlogPosts $blogPosts)
+    public function index(BlogPosts $blogPosts) : Response
     {
         $blogPostsCollection = $blogPosts->all();
 
@@ -25,9 +26,9 @@ class BlogPostsController extends Controller
     /**
      * Returns view to create a new blog post
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function create() : Response
     {
         return $this->responseFactory->view('blog.create');
     }
@@ -37,9 +38,9 @@ class BlogPostsController extends Controller
      * Stores a newly created blog post into database
      *
      * @param BlogPostRequest $request
-     * @return BlogPostRequest|\Illuminate\Http\Response
+     * @return Response
      */
-    public function store(BlogPostRequest $request)
+    public function store(BlogPostRequest $request) : Response
     {
         $data = $request->validationData();
 
@@ -60,12 +61,12 @@ class BlogPostsController extends Controller
     /**
      * Find blog post by id and edit it
      *
-     * @param \App\Models\BlogPosts $blogPosts
+     * @param BlogPosts $blogPosts
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(BlogPosts $blogPosts, int $id)
+    public function edit(BlogPosts $blogPosts, int $id) : Response
     {
         $blogPost = $blogPosts->findOrFail($id);
 
@@ -77,13 +78,13 @@ class BlogPostsController extends Controller
     /**
      * Find blog post by id and update it
      *
-     * @param \App\Http\Requests\BlogPostRequest $request
-     * @param \App\Models\BlogPosts $blogPosts
+     * @param BlogPostRequest $request
+     * @param BlogPosts $blogPosts
      * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(BlogPostRequest $request, BlogPosts $blogPosts, int $id)
+    public function update(BlogPostRequest $request, BlogPosts $blogPosts, int $id) : RedirectResponse
     {
         $blogPost = $blogPosts->findOrFail($id);
 
