@@ -13,7 +13,7 @@ class BlogPostsController extends Controller
     /**
      * Retrieve all blog posts
      *
-     * @param BlogPosts $blogPosts
+     * @param \App\Models\BlogPosts $blogPosts
      * @return Response
      */
     public function index(BlogPosts $blogPosts) : Response
@@ -61,7 +61,7 @@ class BlogPostsController extends Controller
     /**
      * Find blog post by id and edit it
      *
-     * @param BlogPosts $blogPosts
+     * @param \App\Models\BlogPosts $blogPosts
      * @param int $id
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -78,8 +78,8 @@ class BlogPostsController extends Controller
     /**
      * Find blog post by id and update it
      *
-     * @param BlogPostRequest $request
-     * @param BlogPosts $blogPosts
+     * @param \App\Http\Requests\BlogPostRequest $request
+     * @param \App\Models\BlogPosts $blogPosts
      * @param int $id
      * @return RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
