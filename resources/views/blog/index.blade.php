@@ -30,6 +30,8 @@
         <div class="mb-4 flex-1">{{ str_limit($blogPost->body, 100) }}</div>
 
         <td> <img src="{{ asset('storage/blogimages/'.$blogPost->image) }}" /> </td>
+
+        <a href="{{ $blogPost->path() }}">Show</a>
         @endforeach
     </div>
 

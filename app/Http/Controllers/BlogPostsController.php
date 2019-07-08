@@ -101,14 +101,15 @@ class BlogPostsController extends Controller
     /**
      * Show a view for single blog post
      *
-     * @param \App\Models\BlogPosts $blogPost
-     *
+     * @param \App\Models\BlogPosts $blogPosts
+     * @param int $id
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(BlogPosts $blogPost)
+    public function show(BlogPosts $blogPosts, int $id) : Response
     {
-        return view('blog.show', compact('blogPost'));
+        $blogPost = $blogPosts->findOrFail($id);
+
+        return $this->responseFactory->view('blog.show', compact('blogPost'));
     }
 
     public function destroy(BlogPosts $blogPosts, int $id)
