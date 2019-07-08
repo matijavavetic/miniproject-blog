@@ -124,6 +124,6 @@ class BlogPostsController extends Controller
 
         $blogPost->delete();
 
-        return redirect('/blog');
+        return $this->responseFactory->view('blog.index');
     }
 }
