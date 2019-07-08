@@ -98,9 +98,17 @@ class BlogPostsController extends Controller
         return $this->responseFactory->redirectToAction('BlogPostsController@edit', ['id' => $id]);
     }
 
-    public function show()
+    /**
+     * Show a view for single blog post
+     *
+     * @param \App\Models\BlogPosts $blogPost
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function show(BlogPosts $blogPost)
     {
-
+        return view('blog.show', compact('blogPost'));
     }
 
     public function destroy(BlogPosts $blogPosts, int $id)
