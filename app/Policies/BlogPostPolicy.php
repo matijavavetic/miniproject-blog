@@ -60,12 +60,12 @@ class BlogPostPolicy
      * Determine whether the user can delete the blog posts.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\BlogPosts  $blogPosts
+     * @param  \App\Models\BlogPosts  $blogPosts
      * @return mixed
      */
-    public function delete(User $user, BlogPosts $blogPosts)
+    public function delete(User $user, BlogPosts $blogPost)
     {
-        //
+        return $user->id == $blogPost->user_id;
     }
 
     /**

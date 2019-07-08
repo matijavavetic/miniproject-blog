@@ -96,4 +96,20 @@ class BlogPostsController extends Controller
 
         return $this->responseFactory->redirectToAction('BlogPostsController@edit', ['id' => $id]);
     }
+
+    public function show()
+    {
+
+    }
+
+    public function destroy(BlogPosts $blogPosts, int $id)
+    {
+        $blogPost = $blogPosts->findOrFail($id);
+
+        $this->authorize('delete', $blogPost);
+
+        $blogPost->delete();
+
+        return redirect('/blog');
+    }
 }

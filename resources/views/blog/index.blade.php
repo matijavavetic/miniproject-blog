@@ -18,6 +18,11 @@
 
         <p>
             <a href="{{ $blogPost->path() }}/edit">Edit</a>
+            <form method="POST" action="{{ $blogPost->path() }}" class="text-right">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="text-xs">Delete</button>
+            </form>
         </p>
 
         <h3>{{ $blogPost->author->first_name }}</h3>
