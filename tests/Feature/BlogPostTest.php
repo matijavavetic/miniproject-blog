@@ -47,7 +47,7 @@ class BlogPostTest extends TestCase
 
         $blogPost = factory('App\Models\BlogPosts')->create(['user_id' => auth()->id()]);
 
-        $this->delete('/blog/'.$blogPost->id);
+        $this->delete($blogPost->path());
 
         $this->assertDatabaseMissing('blog_posts',['id'=> $blogPost->id]);
     }
