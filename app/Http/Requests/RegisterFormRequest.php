@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterFormRequest extends FormRequest
 {
@@ -34,19 +35,21 @@ class RegisterFormRequest extends FormRequest
     }
 
     /**
-     * Validating data for a blog post
+     * Validating data for a newly registered user
      *
+     * @param  array  $data
      * @return array
      */
-    public function validationData()
+    public function validateRegistration(array $data)
     {
         $input = [
-            'title'   => $this->input('title'),
-            'body'    => $this->input('body'),
-            'image'   => $this->input('image'),
-            'user_id' => $this->auth->id()
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'date_of_birth' => $data['date_of_birth'],
+            'password' => Hash::make($data['password'])
         ];
         return $input;
     }
-}
 }
