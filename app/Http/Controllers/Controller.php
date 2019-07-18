@@ -6,11 +6,14 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Console\StorageLinkCommand;
+use Illuminate\Mail\Mailer;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\AuthManager as Auth;
 
@@ -46,19 +49,47 @@ class Controller extends BaseController
     protected $auth;
 
     /**
+     * The mail instance
+     *
+     * @var \Illuminate\Mail\Mailer $mail
+     */
+    protected $mail;
+
+    /**
+     * The redirect instance
+     *
+     * @var \Illuminate\Routing\Redirector $redirect
+     */
+    protected $redirect;
+
+    /**
+     * The session instance
+     *
+     * @var \Illuminate\Session\SessionManager
+     */
+    protected $session;
+
+    /**
      * Create new controller instance
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Session\SessionManager $session
      * @param  \Illuminate\Contracts\Routing\ResponseFactory  $response
      * @param  \Illuminate\Filesystem\FilesystemManager $storage
      * @param \Illuminate\Auth\AuthManager $auth
+     * @param \Illuminate\Mail\Mailer $mail
+     * @param \Illuminate\Routing\Redirector $redirect
      * @return void
      */
-    public function __construct(Request $request, Response $response, FilesystemManager $storage, Auth $auth)
+    public function __construct
+    (SessionManager $session, Request $request, Response $response, FilesystemManager $storage, Auth $auth,Redirector $redirect, Mailer $mail)
     {
         $this->request = $request;
         $this->responseFactory = $response;
         $this->storage = $storage;
         $this->auth = $auth;
+        $this->session = $session;
+        $this->mail = $mail;
+        $this->redirect = $redirect;
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -16,7 +15,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'first_name', 'last_name', 'date_of_birth', 'password',
+        'name', 'email', 'password',
+        'verification_token', 'lost_password_token'
     ];
 
     /**
@@ -45,5 +45,10 @@ class User extends Authenticatable
     public function blogPosts()
     {
         return $this->hasMany(BlogPosts::class);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 }

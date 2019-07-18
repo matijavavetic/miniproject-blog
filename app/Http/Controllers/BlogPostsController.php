@@ -121,7 +121,7 @@ class BlogPostsController extends Controller
         $blogPostImage = 'blogimages' . '/' . $blogPost->image;
 
         $this->storage->has($blogPostImage) ? $this->storage->delete($blogPostImage) : null;
-
+        
         $blogPost->delete();
 
         return $this->responseFactory->view('blog.index');

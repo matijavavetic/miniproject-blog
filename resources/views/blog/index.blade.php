@@ -25,7 +25,7 @@
             </form>
         </p>
 
-        <h3>{{ $blogPost->author->first_name }}</h3>
+        <h3>{{ $blogPost->author->name }}</h3>
 
         <div class="mb-4 flex-1">{{ str_limit($blogPost->body, 100) }}</div>
 
