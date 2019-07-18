@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BlogPostCreated;
 use Illuminate\Http\RedirectResponse;
 use App\Models\BlogPosts;
 use App\Http\Requests\BlogPostRequest;
@@ -10,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogPostsController extends Controller
 {
-
     /**
      * Retrieve all blog posts
      *
@@ -55,6 +55,8 @@ class BlogPostsController extends Controller
         $blogPost = new BlogPosts();
 
         $blogPost->create($data);
+
+        event(new BlogPostCreated($data, $this->auth->user()));
 
         return $this->responseFactory->view('home');
     }
@@ -124,6 +126,6 @@ class BlogPostsController extends Controller
         
         $blogPost->delete();
 
-        return $this->responseFactory->view('blog.index');
+        return $this->responseFactory->redirectTo('blog');
     }
 }

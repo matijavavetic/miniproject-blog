@@ -32,11 +32,10 @@ class SendVerificationMailJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param Mailer $mail
      * @return void
      */
-    public function handle(Mailer $mail)
+    public function handle()
     {
-        $mail->to($this->data['email'])->send(new VerifyMail($this->data));
+        Mail::to($this->data['email'])->send(new VerifyMail($this->data));
     }
 }

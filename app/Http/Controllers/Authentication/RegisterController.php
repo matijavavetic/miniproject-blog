@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendVerificationMailJob;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RegistrationFormRequest;
 use App\Models\User;
-use Carbon\Carbon;
-use App\Jobs\SendVerificationMailJob;
-use App\Mail\VerifyMail;
+use App\Events\UserRegistered;
 
 class RegisterController extends Controller
 {
@@ -40,7 +39,7 @@ class RegisterController extends Controller
         $user->create($data);
 
         $job = (new SendVerificationMailJob($data))
-             -> delay($this->carbon->now()->addSeconds(5));
+            -> delay($this->carbon->now()->addSeconds(5));
 
         dispatch($job);
 
