@@ -7,6 +7,7 @@ use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Console\StorageLinkCommand;
 use Illuminate\Mail\Mailer;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -69,6 +70,8 @@ class Controller extends BaseController
      */
     protected $session;
 
+    protected $carbon;
+
     /**
      * Create new controller instance
      *
@@ -77,12 +80,13 @@ class Controller extends BaseController
      * @param  \Illuminate\Contracts\Routing\ResponseFactory  $response
      * @param  \Illuminate\Filesystem\FilesystemManager $storage
      * @param \Illuminate\Auth\AuthManager $auth
+     * @param \Carbon\Carbon $carbon
      * @param \Illuminate\Mail\Mailer $mail
      * @param \Illuminate\Routing\Redirector $redirect
      * @return void
      */
     public function __construct
-    (SessionManager $session, Request $request, Response $response, FilesystemManager $storage, Auth $auth,Redirector $redirect, Mailer $mail)
+    (Carbon $carbon, SessionManager $session, Request $request, Response $response, FilesystemManager $storage, Auth $auth,Redirector $redirect, Mailer $mail)
     {
         $this->request = $request;
         $this->responseFactory = $response;
@@ -91,5 +95,6 @@ class Controller extends BaseController
         $this->session = $session;
         $this->mail = $mail;
         $this->redirect = $redirect;
+        $this->carbon = $carbon;
     }
 }

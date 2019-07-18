@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResetPasswordRequest;
+use App\Jobs\SendLostPasswordMailJob;
 use App\Mail\LostPasswordMail;
 use App\Models\User;
 
@@ -37,7 +38,12 @@ class ResetPasswordController extends Controller
         if ($user->exists()) {
             $user['lost_password_token'] = bin2hex(random_bytes(50));
             $user->save();
-            $this->mail->to($user['email'])->send(new LostPasswordMail($user));
+
+            $job = (new SendLostPasswordMailJob($data))
+                -> delay($this->carbon->now()->addSeconds(5));
+
+            dispatch($job);
+
             $this->session->flash('success', 'E-mail for recovering the password has been sent.');
         }
 

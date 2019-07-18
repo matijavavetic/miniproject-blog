@@ -1,5 +1,8 @@
 <?php
 
+use App\Jobs\SendEmailJob;
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
